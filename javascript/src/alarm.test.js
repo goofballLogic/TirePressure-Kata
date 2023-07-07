@@ -19,33 +19,29 @@ describe("Alarm", () => {
 
     });
 
-    describe("When sensor falls below threshold", () => {
+    const cases = [
+        ["falls below threshold", () => LOW_PRESSURE_THRESHOLD - 1, true],
+        ["rises above threshold", () => HIGH_PRESSURE_THRESHOLD + 1, true],
+        ["on the lower threshold", () => LOW_PRESSURE_THRESHOLD, false],
+        ["on the upper threshold", () => HIGH_PRESSURE_THRESHOLD, false],
+        ["within the thresholds", () => LOW_PRESSURE_THRESHOLD + 1, false]
+    ];
 
-        beforeEach(() => {
+    cases.map(([scenario, strategy, isOn]) => {
 
-            sensorSeam = () => LOW_PRESSURE_THRESHOLD - 1;
+        describe(`When the sensor ${scenario}`, () => {
 
-        });
+            beforeEach(() => {
 
-        test("Alarm is on", () => {
+                sensorSeam = strategy;
 
-            assert.equal(true, check());
+            });
 
-        });
+            test(`Alarm is ${isOn ? "on" : "not on"}`, () => {
 
-    });
+                assert.equal(check(), isOn);
 
-    describe("When the sensor rises above threshold", () => {
-
-        beforeEach(() => {
-
-            sensorSeam = () => HIGH_PRESSURE_THRESHOLD + 1;
-
-        });
-
-        test("Alarm is on", () => {
-
-            assert.equal(true, check());
+            });
 
         });
 
