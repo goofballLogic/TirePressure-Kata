@@ -1,0 +1,12 @@
+{
+    "scripts": {
+        "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    },
+    "type": "module",
+    "devDependencies": {
+        "jest": "^29.6.1"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
